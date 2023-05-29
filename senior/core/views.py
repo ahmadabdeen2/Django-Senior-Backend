@@ -13,10 +13,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from .utils import preprocess_features
+from django.http import HttpResponse
 
 # from .your_ml_module import preprocess_input_data  # Assuming you have this function
 
 User = get_user_model()
+
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the index.")
 
 
 class UserModelViewSet(ModelViewSet):

@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import UserModelViewSet, KeystrokeTokenObtainPairView, UserCreationView
+from .views import UserModelViewSet, KeystrokeTokenObtainPairView, UserCreationView, index
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -17,5 +17,6 @@ urlpatterns = [
     path('register/', UserCreationView.as_view(), name='register'),
     path('token/', KeystrokeTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
     path('', include(router.urls)),
 ]
