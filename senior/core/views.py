@@ -47,7 +47,6 @@ User = get_user_model()
 class KeystrokeTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        print(request.data)
         serializer.is_valid()
         print(serializer.validated_data)
         print(serializer.errors)
@@ -61,10 +60,6 @@ class KeystrokeTokenObtainPairView(TokenObtainPairView):
         password = request.data.get('password')
         keystroke_data = request.data.get('features')
 
-        print(username)
-        print(password)
-        print(keystroke_data)
-        
 
         try:
             # Retrieve user instance
@@ -83,10 +78,12 @@ class KeystrokeTokenObtainPairView(TokenObtainPairView):
 
         # Perform your check on the prediction
         # This will depend on how your model's output is structured
-        # user_prediction = predictions[0]
-        print(predictions)
-        # if user_prediction < 0.7:
-        #     return Response({"detail": "Keystroke dynamics do not match."}, status=401)
+        print("USEEEEEEER", user.id)
+        predictions = predictions[0]
+        user_prediction = predictions[user.id-1]
+        print(user_prediction)
+        if user_prediction < 0.7:
+            return Response({"detail": "Keystroke dynamics do not match."}, status=401)
 
         # Perform standard Django authentication
         user = authenticate(username=username, password=password)
